@@ -11,22 +11,14 @@ const app = express();
 const server = createServer(app);
 const io = socketio(server);
 
-app.use(cors(
-  {
-    origin: [
-      'http://localhost:3000',
-    ],
-    credentials: true
-  }
-));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
+  socket.on('sendMessage', (message) => {
+    io.emit('message', message);
   });
 });
 
