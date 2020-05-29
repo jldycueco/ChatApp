@@ -3,78 +3,19 @@ import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from 'styled-components';
-
-const ChatContainer = styled.div`
-  max-width: 1100px;
-	background: #fff;
-	margin: 30px auto;
-	overflow: hidden;
-`
-const ChatHeader = styled.header`
-  background: #667aff;
-  color: #fff;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-const Spacer = styled.div`
-  padding: 0px 5px
-`
-
-const Spacer2 = styled.div`
-  flex: 1;
-`
-const ChatMain = styled.main`
-	display: grid;
-  grid-template-columns: 1fr 3fr;
-  @media (max-width: 700px) {
-    display: block;
-  }
-`
-
-const ChatSidebar = styled.div`
-  background: #7386ff;
-  color: #fff;
-  padding: 20px 20px 60px;
-  overflow-y: scroll;
-  @media (max-width: 700px) {
-    display: none;
-  }
-`
-
-const ChatSidebarContent = styled.h3`
-  display: flex;
-`
-
-const ChatMessages = styled.div`
-	padding: 30px;
-	height: 250px;
-	overflow-y: scroll;
-`
-
-const ChatFormContainer = styled.div`
-	padding: 20px 30px;
-  background-color: #667aff;
-`
-
-const ChatForm = styled.form`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const ChatInput = styled.input`
-  font-size: 16px;
-	padding: 5px;
-	height: 40px;
-  flex: 1;
-  border-radius: 10px
-`
+import { 
+  ChatContainer, 
+  ChatHeader, 
+  Spacer, 
+  Spacer2, 
+  ChatMain, 
+  ChatSidebar, 
+  ChatSidebarContent, 
+  ChatMessages, 
+  ChatFormContainer,
+  ChatForm,
+  ChatInput
+} from './style';
 
 let socket;
 
