@@ -1,54 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+import React from 'react';
+import { 
+  useHistory,
+  useLocation,
+  Route 
+} from 'react-router-dom';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { faSmile, faComments, faUsers, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+
+import Join from './components/Join/';
+import Chat from './components/Chat/';
+
+library.add(fab, faSmile, faComments, faUsers, faPaperPlane);
 
 function App() {
-  // const [state, setState] = useState({
-  //   message: '',
-  //   messageList: []
-  // })
-  const socket = io('http://127.0.0.1:5000');
-
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages([ ...messages, message ]);
-    });
-  }, [socket, messages]);
-
-  const handleChange = (e) => {
-    setMessage(e.target.value);
-  }
-
-  const handleSubmit = (e) => { 
-    e.preventDefault();
-    if (message) {
-      socket.emit('sendMessage', message)
-      setMessage('');
-    }
-  }
+  const history = useHistory();
+  const location = useLocation();
 
   return (
     <>  
-      <h1>Chat App</h1>
-      <ul id="messages">
-        {messages.map((message, index) => (
-          <li key={index}>
-            {message}
-          </li>
-        ))}
-      </ul>
-      <form onSubmit={handleSubmit}>
-      <input
-        className="input"
-        type="text"
-        placeholder="Type a message..."
-        value={message}
-        onChange={handleChange}
-      />
-        <button>Send</button>
-      </form>
+      <Route exact path='/'>
+        <Join 
+          history = {history}
+        />
+      </Route>
+      <Route exact path='/chat'>
+        <Chat
+          history = {history}
+          location = {location}
+        />
+      </Route>
     </>
   )
 }
