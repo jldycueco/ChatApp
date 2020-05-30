@@ -22,13 +22,6 @@ const removeUser = (id) => {
   if (index !== -1){
     return users.splice(index, 1)[0];
   }
-
-  // const userLeft = users.filter(user => user.id === id)
-
-  // if (userLeft.length > 0) {
-  //   return userLeft[0];
-  // }
-
 }
 
 const getRoomUsers = (room) => {

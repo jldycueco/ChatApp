@@ -16,6 +16,7 @@ import {
   ChatForm,
   ChatInput
 } from './style';
+import Message from '../Message/index';
 
 let socket;
 
@@ -61,7 +62,6 @@ function Chat({history, location}) {
 
     socket.on("roomUsers", ({ users }) => {
       setUsers(users);
-      console.log(users);
     });
   }, [])
 
@@ -73,7 +73,9 @@ function Chat({history, location}) {
           <Spacer />
           <h1>Chat App</h1>
           <Spacer2 />
-          <Link to='/'>Leave Room</Link>
+          <Link to='/'>
+            <button>Leave Room</button>
+          </Link>
         </ChatHeader>
         <ChatMain>
           <ChatSidebar>
@@ -98,7 +100,7 @@ function Chat({history, location}) {
           <ChatMessages>
             {messageList.length > 0 && messageList.map((message, index) => (
               <div key={index}>
-                <p>{message.msg} - {message.username} {message.time}</p>
+                <Message message = {message} name = {name} />
               </div>
             ))}
           </ChatMessages>
