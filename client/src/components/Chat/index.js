@@ -21,7 +21,7 @@ import Message from '../Message/index';
 let socket;
 
 function Chat({history, location}) {
-  const ENDPOINT = 'http://127.0.0.1:5000';
+  const ENDPOINT = 'chatapp-jdd.herokuapp.com';
   const [users, setUsers] = useState('');
   const [messageList, setMessageList] = useState([]);
   let name;
