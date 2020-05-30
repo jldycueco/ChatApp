@@ -47,7 +47,7 @@ export const ChatSidebarContent = styled.h3`
 `
 
 export const ChatMessages = styled.div`
-	padding: 30px;
+	padding: 5px;
 	height: 250px;
 	overflow-y: scroll;
 `

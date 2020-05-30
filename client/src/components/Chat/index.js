@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { animateScroll } from 'react-scroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   ChatContainer, 
@@ -24,14 +25,9 @@ function Chat({history, location}) {
   const ENDPOINT = 'chatapp-jdd.herokuapp.com';
   const [users, setUsers] = useState('');
   const [messageList, setMessageList] = useState([]);
-  const messagesEndRef = useRef(null);
 
   let name;
   let room;
-
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -62,9 +58,16 @@ function Chat({history, location}) {
   }, [name, room])
 
   useEffect(() => {
+    const scrollToBottom = () => {
+      animateScroll.scrollToBottom({
+        duration: 100,
+        delay: 100,
+        containerId: "messages"
+      });
+    } 
     socket.on('newMessage', (msg) => {
       setMessageList(messageList => [...messageList, msg])
-      scrollToBottom()
+      scrollToBottom();
     })
 
     socket.on("roomUsers", ({ users }) => {
@@ -104,11 +107,10 @@ function Chat({history, location}) {
                 ))}
               </ul>
           </ChatSidebar>
-          <ChatMessages>
-            {messageList.length > 0 && messageList.map((message, index) => (
-              <Message message = {message} name = {name} key ={index} />
-            ))}
-            <div ref={messagesEndRef} />
+          <ChatMessages id = "messages">
+              {messageList.length > 0 && messageList.map((message, index) => (
+                <Message message = {message} name = {name} key ={index} />
+              ))}
           </ChatMessages>
         </ChatMain>
         <ChatFormContainer>
