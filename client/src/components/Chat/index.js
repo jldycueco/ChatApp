@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -24,8 +24,14 @@ function Chat({history, location}) {
   const ENDPOINT = 'chatapp-jdd.herokuapp.com';
   const [users, setUsers] = useState('');
   const [messageList, setMessageList] = useState([]);
+  const messagesEndRef = useRef(null);
+
   let name;
   let room;
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -58,6 +64,7 @@ function Chat({history, location}) {
   useEffect(() => {
     socket.on('newMessage', (msg) => {
       setMessageList(messageList => [...messageList, msg])
+      scrollToBottom()
     })
 
     socket.on("roomUsers", ({ users }) => {
@@ -99,10 +106,9 @@ function Chat({history, location}) {
           </ChatSidebar>
           <ChatMessages>
             {messageList.length > 0 && messageList.map((message, index) => (
-              <div key={index}>
-                <Message message = {message} name = {name} />
-              </div>
+              <Message message = {message} name = {name} key ={index} />
             ))}
+            <div ref={messagesEndRef} />
           </ChatMessages>
         </ChatMain>
         <ChatFormContainer>
