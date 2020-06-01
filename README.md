@@ -1,4 +1,27 @@
-# QuizApp-Web
+## Chat App
 
-JWT_TOKEN_SECRET_KEY=SECRET
-MONGO_URI=mongodb+srv://JDD:JDD@starterdatabase-ymhx7.mongodb.net/QuizApp?retryWrites=true&w=majority
+> Chat Website built using React, Express and Socket.io
+
+### Quick Start
+
+```bash
+# Install server dependencies
+npm install
+
+# Install client dependencies
+cd client
+npm install
+
+# Run both Express & React from root directory
+npm run dev
+
+# Build for production
+npm run build
+
+cd client
+npm run build
+
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
